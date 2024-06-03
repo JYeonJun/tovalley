@@ -44,6 +44,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
+
+        String requestUri = request.getRequestURI();
+        if (requestUri.contains("//")) {
+            logger.warn("Double slash detected in request URI: " + requestUri);
+        }
+
         if (!isRequestValid(request)) {
             chain.doFilter(request, response);
             return;
@@ -119,6 +125,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private void validateIpAddress(RefreshToken findRefreshToken, String clientIpAddress) {
         if (!findRefreshToken.getIp().equals(clientIpAddress)) {
+            log.error("다른 IP에서의 접근이 감지되었습니다. 보안을 위해 접속이 종료됩니다.");
             throw new UnauthorizedAccessException("다른 IP에서의 접근이 감지되었습니다. 보안을 위해 접속이 종료됩니다.");
         }
     }

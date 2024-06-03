@@ -82,7 +82,7 @@ public class DummyDevInit extends DummyObject {
             initializeAdminMember();
 
             fetchAndSaveDataForProd();
-//            saveDummyData();
+            // saveDummyData();
         };
     }
 
@@ -107,7 +107,7 @@ public class DummyDevInit extends DummyObject {
     }
 
     private void fetchAndSaveDataForProd() {
-//        openApiService.fetchAndSaveWaterPlacesData();
+       // openApiService.fetchAndSaveWaterPlacesData();
         openApiService.fetchAndSaveSpecialWeatherData();
         openApiService.fetchAndSaveNationalWeatherData();
     }
